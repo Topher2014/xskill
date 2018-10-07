@@ -37,6 +37,13 @@ checkFullscreen()
         if [[ "$isActivWinFullscreen" == *NET_WM_STATE_FULLSCREEN* ]];then
         	xscreensaver-command -deactivate
 	    fi
+
+        dpmsStatus=`xset -q | grep -ce 'DPMS is Enabled'`
+        if [ $dpmsStatus == 1 ] && [[ "$isActivWinFullscreen" == *NET_WM_STATE_FULLSCREEN* ]];then
+            xset -dpms
+            xset dpms
+        fi
+
     done
 }
 
